@@ -37,6 +37,7 @@ std::ostream& color(std::ostream& text) {
 int main() 
 {
     std::cout << color<Green> << "Hello " << color<Red> << "World" << color << std::endl;
+    std::cout << color<Green, Red> << "Hello " << color<Red, Green> << "World" << color << std::endl;
     
     return 0;
 }
