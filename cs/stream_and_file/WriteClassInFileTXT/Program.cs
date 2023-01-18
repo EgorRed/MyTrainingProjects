@@ -23,13 +23,11 @@ namespace WriteClassInFileTXT
 
             List<Coord3D> coords = new List<Coord3D>();
 
-
-            string fileName = "Cords.txt";
+            string fileName = "Coords.txt";
             using (var sw = new StreamWriter(fileName, false, Encoding.UTF8))
             {
                 for (int i = 0; i < 9; i++)
                 {
-
                     sw.WriteLine(RandomCoordsValue().ToString());
                 }
             }
@@ -41,7 +39,6 @@ namespace WriteClassInFileTXT
                     coords.Add(Coord3D.Parse(sw.ReadLine()));
                 }
             }
-
 
             foreach (var item in coords)
             {
