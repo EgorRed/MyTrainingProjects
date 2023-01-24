@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+//using System.Threading.Tasks;
 
 namespace ConsoleSnake
 {
@@ -7,10 +8,10 @@ namespace ConsoleSnake
     {
         public Start()
         {
-            window = new Window();
+            window = new WindowSnake();
         }
 
-        public Start(in Window window)
+        public Start(in WindowSnake window)
         {
             this.window = window;
         }
@@ -22,8 +23,6 @@ namespace ConsoleSnake
 
             Snake snake = new(window);
 
-
-            // TODO: put the "Thread RKey" in a separate function
             Thread RKey = new(() =>
             {
                 while (key.Key != ConsoleKey.Escape)
@@ -38,6 +37,7 @@ namespace ConsoleSnake
             {
                 Thread.Sleep(100);
                 DisplayFrames();
+
 
                 switch (key.Key)
                 {
@@ -99,6 +99,6 @@ namespace ConsoleSnake
         }
 
 
-        private Window window;
+        private WindowSnake window;
     }
 }

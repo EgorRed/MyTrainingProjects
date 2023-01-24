@@ -12,8 +12,7 @@ namespace ConsoleSnake
 
     class Snake
     {
-
-        public Snake(in Window window)
+        public Snake(in WindowSnake window)
         {
             this.window = window;
             SetHeadPosition(window);
@@ -21,14 +20,14 @@ namespace ConsoleSnake
 
         public Snake(in int width = 30, in int height = 10)
         {
-            window = new Window(width, height);
+            window = new WindowSnake(width, height);
             SetHeadPosition(window);
         }
 
         public bool S_up()
         {
             char cell = window.arr[headPosition.Y_cord - 1, headPosition.X_cord];
-            temp = headPosition;
+            lastHeadPosition = headPosition;
             if (cell == ' ')
             {
                 headPosition.Y_cord--;
@@ -38,9 +37,7 @@ namespace ConsoleSnake
             else if (cell == '+')
             {
                 headPosition.Y_cord--;
-                window.AppleUpdate();
-                positionsSnake.Add(headPosition);
-                SnakeUpdate();
+                SnakeMagnification(headPosition);
                 return true;
             }
             return false;
@@ -48,7 +45,7 @@ namespace ConsoleSnake
         public bool S_left()
         {
             char cell = window.arr[headPosition.Y_cord, headPosition.X_cord - 1];
-            temp = headPosition;
+            lastHeadPosition = headPosition;
             if (cell == ' ')
             {
                 headPosition.X_cord--;
@@ -57,10 +54,8 @@ namespace ConsoleSnake
             }
             else if (cell == '+')
             {
-                window.AppleUpdate();
-                positionsSnake.Add(headPosition);
                 headPosition.X_cord--;
-                SnakeUpdate();
+                SnakeMagnification(headPosition);
                 return true;
             }
             return false;
@@ -68,7 +63,7 @@ namespace ConsoleSnake
         public bool S_right()
         {
             char cell = window.arr[headPosition.Y_cord, headPosition.X_cord + 1];
-            temp = headPosition;
+            lastHeadPosition = headPosition;
             if (cell == ' ')
             {
                 headPosition.X_cord++;
@@ -77,10 +72,8 @@ namespace ConsoleSnake
             }
             else if (cell == '+')
             {
-                window.AppleUpdate();
-                positionsSnake.Add(headPosition);
                 headPosition.X_cord++;
-                SnakeUpdate();
+                SnakeMagnification(headPosition);
                 return true;
             }
             return false;
@@ -88,7 +81,7 @@ namespace ConsoleSnake
         public bool S_down()
         {
             char cell = window.arr[headPosition.Y_cord + 1, headPosition.X_cord];
-            temp = headPosition;
+            lastHeadPosition = headPosition;
             if (cell == ' ')
             {
                 headPosition.Y_cord++;
@@ -97,14 +90,13 @@ namespace ConsoleSnake
             }
             else if (cell == '+')
             {
-                window.AppleUpdate();
-                positionsSnake.Add(headPosition);
                 headPosition.Y_cord++;
-                SnakeUpdate();
+                SnakeMagnification(headPosition);
                 return true;
             }
             return false;
         }
+
 
         public ref List<Position> GetPositions()
         {
@@ -116,7 +108,14 @@ namespace ConsoleSnake
             return positionsSnake.Count - 1;
         }
 
-        private void SetHeadPosition(in Window window)
+        private void SnakeMagnification(in Position headPosition)
+        {
+            window.AppleUpdate();
+            positionsSnake.Add(headPosition);
+            SnakeUpdate();
+        }
+
+        private void SetHeadPosition(in WindowSnake window)
         {
             headPosition.X_cord = window.width / 2;
             headPosition.Y_cord = window.height / 2;
@@ -129,16 +128,16 @@ namespace ConsoleSnake
             positionsSnake.Insert(0, headPosition);
             if (positionsSnake.Count > 1)
             {
-                positionsSnake.Insert(1, temp);
+                positionsSnake.Insert(1, lastHeadPosition);
                 positionsSnake.RemoveAt(positionsSnake.Count - 1);
             }
             window.UpdateWindowWithSnake(positionsSnake, positionsSnake.Count - 1);
         }
 
 
-        private List<Position> positionsSnake = new List<Position>();
+        private List<Position> positionsSnake = new();
         private Position headPosition;
-        private Position temp;
-        private Window window;
+        private Position lastHeadPosition;
+        private WindowSnake window;
     }
 }

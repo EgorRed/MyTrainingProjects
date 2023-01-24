@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace ConsoleSnake
 {
-    class Window
+    class WindowSnake
     {
-        public Window(in int width = 30, in int height = 10)
+        public WindowSnake(in int width = 30, in int height = 10)
         {
             this.width = width;
             this.height = height;
@@ -68,9 +68,7 @@ namespace ConsoleSnake
         public int width { get; }
         public int height { get; }
         public char[,] arr { get; }
-
         private char aplle;
-
         private Position positionApple;
     }
 }
