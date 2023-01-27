@@ -12,6 +12,8 @@ namespace ClientTCP
             const string ip = "127.0.0.1";
             const int port = 8080;
 
+
+
             while (true)
             {
                 //create endpoint

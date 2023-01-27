@@ -19,7 +19,7 @@ namespace ServerTCP
             var tcpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             //bind to endpoint
-            tcpSocket.Bind(tcpEndPoint);
+            tcpSocket.Bind(localEP: tcpEndPoint);
 
             //set max number connection
             tcpSocket.Listen(5);
@@ -43,7 +43,7 @@ namespace ServerTCP
                 Console.WriteLine(data);
 
                 //send data to client
-                listener.Send(Encoding.UTF8.GetBytes("Server: success"));
+                listener.Send(Encoding.UTF8.GetBytes("Server: message received"));
 
                 //socket close
                 listener.Shutdown(SocketShutdown.Both);
